@@ -62,15 +62,12 @@ Each change below started with something the client said, found, or wished for.
 - **Change:** event fees became a per-booking toggle (an Event column on Transactions), reversing an
   earlier design that set them per service.
 
-### Version 2: reports and a sheet that is hard to break
+### Version 2: reports and a cleaner invoice run
 - **Feedback:** the manager didn't want to open every invoice to review the week.
   **Change:** business reports alongside the original invoices: a manager review summary and a
   business totals report.
-- **Feedback:** the client found simple but surprising ways to break the sheet. One bad date in the
-  pay-week cell stopped a whole week, and text or day-first dates slipped through.
-  **Change:** validation hardened: real dates only, the pay week must start on a Friday, dates are read
-  tolerantly as a backstop, rows past the limit are reported instead of ignored, a Health Check, and a
-  backup before each new week.
+- **Change:** duplicate invoice generation removed.
+- **Change:** validation started becoming more robust, beginning with strict inputs on Transactions.
 
 ### Version 3: a guided workflow with an app feel
 - **Feedback:** the client thought she had to generate every invoice and have them emailed in order to
@@ -78,6 +75,11 @@ Each change below started with something the client said, found, or wished for.
   **Change:** I clarified the pain points and created a guided workflow. The one menu became two
   custom menus: one for the weekly flow in order, and one for reports and under-the-hood fixes. Every
   step now says plainly whether it emails anyone or not.
+- **Feedback:** the client found simple but surprising ways to break the sheet. One bad date in the
+  pay-week cell stopped a whole week, and text or day-first dates slipped through.
+  **Change:** validation hardened: real dates only, the pay week must start on a Friday and fixes itself
+  when it doesn't, typed and pasted dates are read tolerantly, rows past the limit are reported instead
+  of ignored, a Health Check, and a backup before each new week.
 - **Feedback:** payments went out with messages like "1 massage, 1 facial plus tips".
   **Change:** I automated another routine task. The message for each e-transfer is generated from the
   week's figures, so it is factual and gives proper context, and an E-Transfers tab lists every payment
