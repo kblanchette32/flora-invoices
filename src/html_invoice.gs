@@ -49,8 +49,8 @@ function buildInvoiceHtml_(d) {
   const itemsTable = function (rows, withServiceFee) {
     const cols = [
       ["Date", "left"], ["Service", "left"], ["Price", "right"], ["Facility fee", "right"],
-      [withServiceFee ? "Service fee" : "Linen", "right"], ["Gratuity", "right"], ["Payout", "right"]
-    ];
+      ["Linen", "right"]
+    ].concat(withServiceFee ? [["Service fee", "right"]] : []).concat([["Gratuity", "right"], ["Payout", "right"]]);
     const th = cols.map(function (c) {
       return '<th style="text-align:' + c[1] + ';padding:0 8px 7px;font-size:10px;font-weight:700;letter-spacing:0.06em;color:' + C.grey +
         ';background:#FFFFFF;border-bottom:2px solid ' + C.rose + '">' + c[0].toUpperCase() + '</th>';
@@ -66,7 +66,8 @@ function buildInvoiceHtml_(d) {
         td(esc_(r.service) + (r.productNote ? '<div style="font-size:10.5px;color:' + C.grey + ';margin-top:2px">' + esc_(r.productNote) + '</div>' : ""), "left") +
         td(esc_(r.price), "right") +
         fee(r.facility) +
-        fee(withServiceFee ? r.serviceFee : r.linen) +
+        fee(r.linen) +
+        (withServiceFee ? fee(r.serviceFee) : "") +
         td(esc_(r.gratuity), "right", isNone(r.gratuity) ? "color:" + C.grey + ";" : "color:" + C.green + ";") +
         td(esc_(r.payout), "right", "font-weight:700;") +
         '</tr>';
