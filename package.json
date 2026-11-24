@@ -1,0 +1,8 @@
+{
+  "name": "flora-invoices",
+  "private": true,
+  "description": "Weekly payout and invoicing tool in Google Sheets and Apps Script",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
+}

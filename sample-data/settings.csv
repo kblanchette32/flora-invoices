@@ -1,0 +1,6 @@
+Setting,Value,Notes
+Business Name,Flora Sanctuary (sample),Shown on every invoice and report
+Business Address,123 Sample Street,Placeholder address
+Payout %,60%,Placeholder. The share a practitioner keeps unless their row overrides it
+Linen Fee (per service),$3.00,Placeholder. Skipped for practitioners who bring their own linens
+Manager Email,manager@example.com,Where the weekly review summary is emailed

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #A13D63; --rose-dark: #86304F; --blush: #F7E4E9; --bg: #FBF8F9; --line: #EFE6EA;
+    --text: #2E2A2C; --muted: #6B6266; --amber-bg: #FFF3D6; --amber-text: #6A4A00; --green: #2F6B4F;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 "DM Sans", Arial, sans-serif; }
+  button { font: inherit; color: inherit; }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--rose); outline-offset: 2px; }
+  button:disabled { cursor: default; opacity: .55; }
+
+  .hdr { background: var(--rose); color: #fff; padding: 16px 16px 44px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .brand { display: flex; align-items: baseline; gap: 7px; }
+  .wm { font: 600 26px/1 "Fraunces", Georgia, serif; }
+  .sub { font-size: 11px; font-weight: 700; letter-spacing: .14em; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: var(--text); border: none; border-radius: 999px; padding: 6px 10px; min-height: 32px; font-size: 12px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+  .pill:hover:not(:disabled) { background: var(--blush); }
+  .dot { width: 8px; height: 8px; border-radius: 4px; background: var(--green); }
+  .dot.warn { background: #C98A00; } .dot.fix { background: #C0392B; }
+
+  .wrap { padding: 0 12px 16px; margin-top: -32px; display: flex; flex-direction: column; gap: 12px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+  .week { box-shadow: 0 2px 10px rgba(161,61,99,.08); display: flex; flex-direction: column; gap: 6px; }
+  .label { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: var(--muted); }
+  .range { font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+  .hint { color: var(--muted); font-size: 11.5px; }
+  .muted { color: var(--muted); font-size: 12.5px; }
+  .amber { background: var(--amber-bg); color: var(--amber-text); border-radius: 10px; padding: 8px 10px; font-size: 12.5px; }
+  .acct { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; padding: 0 4px; word-break: break-all; }
+  .acct svg { flex-shrink: 0; color: var(--green); }
+  .linkbtn { background: none; border: none; padding: 0; color: var(--rose); font-weight: 700; text-decoration: underline; cursor: pointer; font-size: 12.5px; }
+
+  .sechead { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 4px 0; }
+  .steps { display: flex; flex-direction: column; gap: 8px; }
+  .step { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; display: flex; gap: 10px; align-items: flex-start; }
+  .step.current { border: 2px solid var(--rose); padding: 13px 12px; box-shadow: 0 2px 10px rgba(161,61,99,.10); }
+  .step.done .title { color: var(--muted); }
+  .num { flex-shrink: 0; width: 28px; height: 28px; border-radius: 14px; background: var(--blush); color: var(--rose); font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+  .num.done { background: var(--rose); color: #fff; }
+  .body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .title { font-weight: 700; }
+  .desc { color: var(--muted); font-size: 12.5px; }
+  .tag { align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; border-radius: 999px; padding: 2px 8px; }
+  .tag.none { color: var(--green); background: #E7F2EC; }
+  .tag.mail { color: var(--rose-dark); background: var(--blush); }
+  .small { background: none; border: none; color: var(--rose); font-weight: 700; font-size: 12.5px; cursor: pointer; padding: 6px 2px; min-height: 32px; white-space: nowrap; }
+  .big { margin-top: 6px; min-height: 44px; width: 100%; border: none; border-radius: 10px; background: var(--rose); color: #fff; font-weight: 700; font-size: 14.5px; cursor: pointer; }
+  .big:hover:not(:disabled) { background: var(--rose-dark); }
+
+  .next { border: 1.5px dashed #D6B3C1; background: transparent; display: flex; flex-direction: column; gap: 6px; }
+  .outline { min-height: 44px; border: 1.5px solid var(--rose); border-radius: 10px; background: #fff; color: var(--rose); font-weight: 700; cursor: pointer; margin-top: 4px; }
+
+  .fold { display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 44px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0 14px; font-weight: 700; cursor: pointer; }
+  .fold svg { transition: transform .15s; }
+  .fold[aria-expanded="true"] svg { transform: rotate(180deg); }
+  .tools { display: flex; flex-direction: column; gap: 10px; }
+  .tools .group { display: flex; flex-direction: column; gap: 2px; }
+  .tool { text-align: left; background: #fff; border: 1px solid var(--line); border-radius: 10px; min-height: 40px; padding: 0 12px; cursor: pointer; font-weight: 500; }
+  .tool:hover:not(:disabled) { border-color: var(--rose); }
+
+  .goto { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 0 2px; }
+  .chip { min-height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font-size: 12.5px; font-weight: 500; cursor: pointer; }
+  .chip:hover:not(:disabled) { border-color: var(--rose); color: var(--rose); }
+  .foot { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 12px; padding: 4px 4px 0; }
+
+  .sk { background: linear-gradient(90deg, #F1E9EC 25%, #F8F2F4 50%, #F1E9EC 75%); background-size: 200% 100%; animation: sh 1.2s infinite; border-radius: 8px; }
+  @keyframes sh { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+  @media (prefers-reduced-motion: reduce) { .sk { animation: none; } }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="brand"><span class="wm">Flora</span><span class="sub">PAYOUTS</span></div>
+  <button type="button" class="pill" id="pill" aria-label="Open Health Check" title="Open the full Health Check" data-run="healthCheck"><span class="dot" id="pillDot"></span><span id="pillText" aria-live="polite">Checking…</span></button>
+</header>
+
+<main class="wrap" id="main">
+  <!-- skeleton until the first state arrives -->
+  <div class="card week" id="skeleton" aria-label="Loading">
+    <div class="sk" style="height:10px;width:40%"></div>
+    <div class="sk" style="height:20px;width:75%"></div>
+    <div class="sk" style="height:12px;width:55%"></div>
+  </div>
+  <div id="skSteps" class="steps">
+    <div class="sk" style="height:58px"></div><div class="sk" style="height:58px"></div><div class="sk" style="height:58px"></div>
+  </div>
+  <div id="content" hidden></div>
+</main>
+
+<script>
+(function () {
+  var ICON_CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  var ICON_MAIL = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>';
+  var ICON_CHEVRON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+
+  var STEPS = [
+    { key: "1",  action: "preview",       title: "Check this week’s totals", desc: "Fills in the totals table on Invoices so you can see the week’s numbers.", cta: "Check totals", mail: "" },
+    { key: "2",  action: "generate",      title: "Make invoice PDFs", desc: "One invoice PDF per practitioner, saved to Drive.", cta: "Make PDFs", mail: "" },
+    { key: "3",  action: "reviewSummary", title: "Make manager summary", desc: "One PDF of the whole week for the manager to look over.", cta: "Make summary", mail: "" },
+    { key: "3b", action: "emailSummary",  title: "Email summary to manager", desc: "Optional. Sends that one summary PDF to the manager.", cta: "Email the manager", mail: "Emails the manager" },
+    { key: "4",  action: "send",          title: "Email invoices to practitioners", desc: "Only after the manager approves. You’ll be asked to confirm.", cta: "Email practitioners", mail: "Emails practitioners" },
+    { key: "5",  action: "etransfer",     title: "E-Transfer notes", desc: "The amount and a ready-to-paste message for each payment.", cta: "Show notes", mail: "" }
+  ];
+  // Kept short on purpose: the Health Check is the status label at the top, and the fix-it tools live in the
+  // Flora · Tools menu, so the panel stays about the weekly flow.
+  var TOOLS = [
+    { group: "Reports", items: [["businessTotals", "Business totals"], ["pastSummary", "Summary for a past week"]] },
+    { group: "Other", items: [["oneInvoice", "Redo one practitioner’s invoice"], ["records", "Show / hide records tabs"]] }
+  ];
+
+  var state = null, loadedOnce = false, busy = false, toolsOpen = false, lastError = "";
+  var content = document.getElementById("content");
+  // The health pill is the quick way into the full Health Check report.
+  var pillBtn = document.getElementById("pill");
+  pillBtn.addEventListener("click", function () { if (loadedOnce) run("healthCheck", null); });
+
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+      if (k === "text") n.textContent = attrs[k];
+      else if (k === "html") n.innerHTML = attrs[k];          // only ever our own icon strings
+      else if (k === "onclick") n.addEventListener("click", attrs[k]);
+      else n.setAttribute(k, attrs[k]);
+    });
+    (kids || []).forEach(function (c) { if (c) n.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+    return n;
+  }
+
+  function multiAccountHint(msg) {
+    return /ScriptError|PERMISSION_DENIED|multiple accounts|access denied|authoriz|permission/i.test(String(msg));
+  }
+
+  // ---- talking to the sheet
+  function load() {
+    google.script.run.withSuccessHandler(render).withFailureHandler(fail).getPanelState();
+  }
+  function run(action, btn) {
+    if (busy) return;
+    busy = true; lastError = "";
+    var buttons = document.querySelectorAll("button[data-run]");
+    for (var i = 0; i < buttons.length; i++) buttons[i].disabled = true;
+    if (btn) btn.textContent = "Working…";
+    google.script.run
+      .withSuccessHandler(function (s) { busy = false; render(s); })
+      .withFailureHandler(function (e) { busy = false; fail(e); })
+      .panelRun(action);
+  }
+  function fail(e) {
+    var msg = (e && e.message) || String(e);
+    if (!loadedOnce) return renderCantReach(msg);
+    lastError = msg;
+    render(state);
+  }
+
+  // ---- drawing
+  function render(s) {
+    state = s; loadedOnce = true;
+    pillBtn.disabled = false;  // the pill lives in the header, outside what's redrawn below
+    document.getElementById("skeleton").hidden = true;
+    document.getElementById("skSteps").hidden = true;
+    content.hidden = false;
+    content.textContent = "";
+
+    var h = s.health || {};
+    var dot = document.getElementById("pillDot");
+    dot.className = "dot" + (h.fixes ? " fix" : h.warns ? " warn" : "");
+    document.getElementById("pillText").textContent = h.fixes ? h.fixes + " to fix" : h.warns ? h.warns + " heads-up" : "All good";
+
+    var wrap = el("div", { style: "display:flex;flex-direction:column;gap:12px" });
+
+    // This pay week
+    var week = el("section", { "class": "card week", "aria-label": "This pay week" }, [
+      el("span", { "class": "label", text: "THIS PAY WEEK" }),
+      // Each date stays whole, so a narrow panel breaks the line between the two dates, never inside one.
+      s.periodOk
+        ? el("span", { "class": "range" }, [el("span", { style: "white-space:nowrap", text: s.periodStart + " –" }), " ",
+            el("span", { style: "white-space:nowrap", text: s.periodEnd })])
+        : el("span", { "class": "range", text: "Period start needs a date" }),
+      el("span", { "class": "hint", text: "Wrong week? Change the date in cell C4 on the Invoices tab." }),
+      s.periodOk ? el("span", { "class": "muted", text: s.bookings + " booking" + (s.bookings === 1 ? "" : "s") + " · " + s.practitioners + " practitioner" + (s.practitioners === 1 ? "" : "s") }) : null,
+      h.first ? el("div", { "class": "amber", role: "status", text: (h.firstLevel === "fix" ? "To fix: " : "Heads-up: ") + h.first }) : null
+    ]);
+    wrap.appendChild(week);
+    wrap.appendChild(accountStrip(s.account || {}));
+    if (s.tabs && s.tabs.length) {
+      var go = el("nav", { "class": "goto", "aria-label": "Go to a tab" }, [el("span", { "class": "label", style: "margin-right:2px", text: "GO TO" })]);
+      s.tabs.forEach(function (name) {
+        var chip = el("button", { "class": "chip", text: name });
+        chip.addEventListener("click", function () {
+          google.script.run.withFailureHandler(function (e) { lastError = (e && e.message) || String(e); render(state); }).panelGoTo(name);
+        });
+        go.appendChild(chip);
+      });
+      wrap.appendChild(go);
+    }
+    if (lastError) {
+      wrap.appendChild(el("div", { "class": "amber", role: "alert" }, [
+        el("div", { text: multiAccountHint(lastError)
+          ? "That didn’t go through. If you’re signed in to more than one Google account, open the sheet in a window signed in only to the Flora account."
+          : "That didn’t go through. Try again, or run Health Check." }),
+        el("div", { "class": "muted", style: "margin-top:4px;color:#6A4A00", text: String(lastError).slice(0, 160) })
+      ]));
+    }
+
+    // Weekly steps
+    var done = s.done || {};
+    var doneCount = STEPS.filter(function (st) { return done[st.key]; }).length;
+    wrap.appendChild(el("div", { "class": "sechead" }, [
+      el("span", { "class": "label", text: "WEEKLY STEPS" }),
+      el("span", { "class": "muted", text: doneCount + " of 6 done" })
+    ]));
+    // The current step is the first one not done. 3b is optional, so it's skipped once step 4 is done.
+    var current = null;
+    STEPS.forEach(function (st) {
+      if (current || done[st.key]) return;
+      if (st.key === "3b" && done["4"]) return;
+      current = st.key;
+    });
+    var list = el("div", { "class": "steps" });
+    STEPS.forEach(function (st) { list.appendChild(stepCard(st, !!done[st.key], st.key === current)); });
+    wrap.appendChild(list);
+
+    // Start next week
+    var allDone = ["1", "2", "3", "4", "5"].every(function (k) { return done[k]; });
+    var nextBtn = el("button", { "class": "outline", "data-run": "startNewWeek",
+      text: s.periodOk ? "Archive & start " + s.nextStart : "Archive & start next week" });
+    nextBtn.addEventListener("click", function () { run("startNewWeek", nextBtn); });
+    wrap.appendChild(el("section", { "class": "card next", "aria-label": "Start next week" }, [
+      el("span", { "class": "title", text: "Start next week" }),
+      el("span", { "class": "desc", text: "Last, after everyone is paid. Saves a backup, files this week in the Archive and clears Transactions." }),
+      allDone ? null : el("span", { "class": "muted", text: "Usually after steps 1 to 5." }),
+      nextBtn
+    ]));
+
+    // More (reports and the occasional extras)
+    var fold = el("button", { "class": "fold", "aria-expanded": String(toolsOpen), "aria-controls": "tools" }, [
+      el("span", { text: "More" }), el("span", { html: ICON_CHEVRON })
+    ]);
+    var tools = el("div", { "class": "tools", id: "tools" });
+    tools.hidden = !toolsOpen;
+    fold.addEventListener("click", function () {
+      toolsOpen = !toolsOpen;
+      fold.setAttribute("aria-expanded", String(toolsOpen));
+      tools.hidden = !toolsOpen;
+    });
+    TOOLS.forEach(function (g) {
+      var grp = el("div", { "class": "group" }, [el("span", { "class": "label", style: "padding:4px 2px", text: g.group.toUpperCase() })]);
+      g.items.forEach(function (it) {
+        var b = el("button", { "class": "tool", "data-run": it[0], text: it[1] });
+        b.addEventListener("click", function () { run(it[0], b); });
+        grp.appendChild(b);
+      });
+      tools.appendChild(grp);
+    });
+    wrap.appendChild(fold);
+    wrap.appendChild(tools);
+
+    // Footer
+    var refresh = el("button", { "class": "linkbtn", text: "Re-check this week", title: "Updates the counts, ticks and health from the sheet" });
+    refresh.addEventListener("click", function () {
+      if (busy) return;
+      lastError = "";
+      document.getElementById("pillText").textContent = "Checking…";
+      load();
+    });
+    var closeBtn = el("button", { "class": "linkbtn", style: "color:var(--muted);font-weight:500", text: "Close panel" });
+    closeBtn.addEventListener("click", function () { google.script.host.close(); });
+    wrap.appendChild(el("footer", { "class": "foot" }, [el("span", { text: "Version " + s.version }), refresh]));
+    wrap.appendChild(el("div", { "class": "foot", style: "padding-top:0" }, [closeBtn]));
+
+    content.appendChild(wrap);
+  }
+
+  function stepCard(st, isDone, isCurrent) {
+    var tag = st.mail
+      ? el("span", { "class": "tag mail" }, [el("span", { html: ICON_MAIL }), st.mail])
+      : el("span", { "class": "tag none", text: "Emails nobody" });
+    var num = isDone
+      ? el("span", { "class": "num done", html: ICON_CHECK, "aria-label": "Done" })
+      : el("span", { "class": "num", text: st.key });
+    var body = el("div", { "class": "body" });
+    var btn;
+    if (isCurrent) {
+      body.appendChild(el("span", { "class": "title", text: st.title }));
+      body.appendChild(el("span", { "class": "desc", text: st.desc }));
+      body.appendChild(tag);
+      btn = el("button", { "class": "big", "data-run": st.action, text: st.cta });
+      body.appendChild(btn);
+    } else {
+      btn = el("button", { "class": "small", "data-run": st.action, text: isDone ? "Run again" : "Run",
+        "aria-label": (isDone ? "Run again: " : "Run: ") + st.title });
+      body.appendChild(el("div", { "class": "row" }, [el("span", { "class": "title", text: st.title }), btn]));
+      if (st.key === "3b" && !isDone) body.appendChild(el("span", { "class": "desc", text: "Optional" }));
+      if (!isDone) body.appendChild(tag);
+    }
+    btn.addEventListener("click", function () { run(st.action, btn); });
+    return el("div", { "class": "step" + (isCurrent ? " current" : "") + (isDone ? " done" : "") }, [num, body]);
+  }
+
+  function howToSwitch() {
+    google.script.run.withFailureHandler(function () {}).showSwitchHelp();
+  }
+
+  function accountStrip(a) {
+    if (a.me && !a.mismatch) {
+      return el("div", { "class": "acct" }, [el("span", { html: ICON_CHECK }), el("span", { text: "Signed in as " + a.me })]);
+    }
+    var link = el("button", { "class": "linkbtn", text: "How to switch" });
+    link.addEventListener("click", howToSwitch);
+    var text = a.me
+      ? "You’re signed in as " + a.me + ", but this sheet belongs to " + a.owner + ". Emails and PDFs will use " + a.me + ". "
+      : "Google won’t say which account you’re using. If buttons fail, see ";
+    return el("div", { "class": "amber", role: "status" }, [el("span", { text: text }), link]);
+  }
+
+  function renderCantReach(msg) {
+    document.getElementById("skeleton").hidden = true;
+    document.getElementById("skSteps").hidden = true;
+    document.getElementById("pillDot").className = "dot warn";
+    document.getElementById("pillText").textContent = "Can’t connect";
+    content.hidden = false;
+    content.textContent = "";
+    var again = el("button", { "class": "big", text: "Try again" });
+    again.addEventListener("click", function () {
+      content.hidden = true;
+      document.getElementById("skeleton").hidden = false;
+      document.getElementById("skSteps").hidden = false;
+      document.getElementById("pillText").textContent = "Checking…";
+      load();
+    });
+    content.appendChild(el("section", { "class": "card week", role: "alert" }, [
+      el("span", { "class": "title", style: "font-size:16px", text: "Flora can’t reach this sheet" }),
+      el("p", { style: "margin:0", text: "This almost always means you’re signed in to more than one Google account in this browser, and Google picked the wrong one." }),
+      el("ol", { style: "margin:4px 0;padding-left:20px;display:flex;flex-direction:column;gap:6px" }, [
+        el("li", { text: "Click your picture at the top right of Google and note which accounts are listed." }),
+        el("li", { text: "Easiest fix: open this sheet in a Chrome profile (or an Incognito window) signed in ONLY to the Flora account." }),
+        el("li", { text: "Reload the sheet." })
+      ]),
+      again,
+      el("span", { "class": "muted", style: "font-size:11px;word-break:break-word", text: "Technical detail: " + String(msg).slice(0, 180) })
+    ]));
+  }
+
+  load();
+})();
+</script>
+</body>
+</html>

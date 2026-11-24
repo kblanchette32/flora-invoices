@@ -1,0 +1,12 @@
+# clasp project link and login (hold the script ID and tokens)
+.clasp.json
+.clasprc.json
+
+# secrets and keys
+.env
+.secrets/
+*.key
+
+# tools and OS
+node_modules/
+.DS_Store

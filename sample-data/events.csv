@@ -1,0 +1,4 @@
+Event Name,Date(s),Travel Fee,Event Service Fee,Gratuity %,Notes
+(Event defaults),,50,10,15%,Used unless an event row says otherwise
+Sample Wellness Fair,2026-01-11,,,,Uses the defaults
+Sample Corporate Chair Massage,2026-01-14,25,,10%,Shorter trip and lower gratuity

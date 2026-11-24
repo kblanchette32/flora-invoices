@@ -1,0 +1,5 @@
+Practitioner,Active? (Y/N),Payout % (blank = usual),Own linens? (Y/N),Email,Type
+Avery (sample),Y,,N,avery@example.com,Contractor
+Blake (sample),Y,65%,N,blake@example.com,Contractor
+Casey (sample),Y,,Y,casey@example.com,Contractor
+Drew (sample),N,,N,drew@example.com,Contractor

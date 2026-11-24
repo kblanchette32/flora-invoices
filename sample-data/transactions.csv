@@ -1,0 +1,12 @@
+Date of Service,Practitioner,Service,Client Name,Gratuity $,Remove Linen Fee? (Y/N),Comped? (Y/N),Event (blank = regular),Custom Price
+2026-01-09,Avery (sample),60 Minute Massage,Client 01,15,,,,
+2026-01-09,Blake (sample),Facial,Client 02,10,,,,
+2026-01-10,Casey (sample),Reiki Session,Client 03,0,,,,
+2026-01-10,Avery (sample),90 Minute Massage,Client 04,20,,,,
+2026-01-11,Avery (sample),60 Minute Massage,Client 05,,,,Sample Wellness Fair,
+2026-01-11,Casey (sample),60 Minute Massage,Client 06,,,,Sample Wellness Fair,
+2026-01-12,Blake (sample),Brow Shaping,Client 07,5,Y,,,
+2026-01-13,Avery (sample),60 Minute Massage,Client 08,0,,Y,,
+2026-01-13,Blake (sample),Facial,Client 09,12.5,,,,72
+2026-01-14,Casey (sample),60 Minute Massage,Client 10,,,,Sample Corporate Chair Massage,
+2026-01-15,Blake (sample),Facial,Client 11,10,,,,
