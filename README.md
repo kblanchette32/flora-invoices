@@ -63,14 +63,16 @@ fills in the gaps that weren't being handled.
 
 ## Version history
 
-Each change below started with something the client said, found, or wished for.
+Most of these changes came from my own knowledge of the industry, the weekly flow, what practitioners
+need and where the client struggled. Where a change answered something the client actually said, it is
+marked **Feedback**.
 
 ### Version 1: the invoice structure
 - **Need:** turn a week of bookings into accurate practitioner invoices.
 - **Change:** a Settings tab for rules and prices, a Services tab as the single source of truth, a
   Transactions tab that grows by rows, and a PDF invoice for each practitioner.
-- **Change:** event fees became a per-booking toggle (an Event column on Transactions), reversing an
-  earlier design that set them per service.
+- **Change:** event fees as a per-booking toggle: an Event column on Transactions applies that event's
+  fees to the booking.
 
 ### Version 2: reports and a cleaner invoice run
 - **Feedback:** using version 1, the client asked for reports.
@@ -115,11 +117,14 @@ The rest of version 3 came from my own choices as the developer, not from client
 
 ## Design decisions
 
+These came from my knowledge of the industry, the weekly flow, practitioner needs and the client's
+struggles, not only from feedback.
+
 - **Rules and prices live in a Settings tab.** A change means editing a cell, not a formula.
 - **The sheet grows by adding rows, not by editing formulas.**
 - **The Services tab is the single source of truth.** It feeds dependent dropdowns, so a practitioner's
   service list only offers what they actually provide, at the price set in one place.
-- **Event fees are a per-transaction toggle.** I reversed my earlier service-level design.
+- **Event fees are a per-transaction toggle.** A booking is tagged to an event, and the fees follow.
 - **Pay stubs are built so the payee can check their own totals.** Every fee is shown per booking and
   again in a ledger that adds up to the net payout.
 - **Take out the friction.** A big piece of the design was removing every step the manager would
