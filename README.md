@@ -29,7 +29,9 @@ was deducted. Those records weren't being provided.
 I'm one of those practitioners. Many of the features here exist because I needed these resources
 myself, and I saw an opportunity to build a robust, custom tool that would provide them for everyone.
 
-The person running the tool is not technical, may work on an iPad, and needs it to just work every week.
+The person running the tool is not technical, may work on an iPad, and doesn't read instructions. If
+she gets lost, she stops using the tool. So my goal was a tool that is easy to follow, foolproof, and
+fills in the gaps that weren't being handled.
 
 ## What it does
 
@@ -66,25 +68,26 @@ Each change below started with something the client said, found, or wished for.
   earlier design that set them per service.
 
 ### Version 2: reports and a cleaner invoice run
-- **Feedback:** the manager didn't want to open every invoice to review the week.
-  **Change:** business reports alongside the original invoices: a manager review summary and a
-  business totals report.
+- **Change:** business reports alongside the original invoices: a manager review summary, so the week
+  can be checked in one PDF instead of invoice by invoice, and a business totals report.
 - **Change:** duplicate invoice generation removed.
 - **Change:** validation started becoming more robust, beginning with strict inputs on Transactions.
 
 ### Version 3: a guided workflow with an app feel
-- **Feedback:** the client thought she had to generate every invoice and have them emailed in order to
-  review them, and she asked for reports that already existed but that she hadn't found.
+- **Feedback:** the client wasn't using the invoices, because she thought she had to go through every
+  one of them. The review summary that solves this had shipped in version 2, but she hadn't found it.
   **Change:** I clarified the pain points and created a guided workflow. The one menu became two
   custom menus: one for the weekly flow in order, and one for reports and under-the-hood fixes. Every
   step now says plainly whether it emails anyone or not.
+- **Feedback:** the client broke the pay-week date and then couldn't save or edit it. The likely cause
+  was a data type problem: typing the date instead of using the date picker can leave text in the cell
+  instead of a real date.
+  **Change:** validation hardened so a mistake like that fixes itself instead of locking her out. The
+  pay-week cell reads typed and pasted dates, snaps any date to its Friday, and puts the last good week
+  back if what's typed is junk. Rows past the limit are reported instead of ignored, a Health Check
+  explains problems in plain words, and a backup is made before each new week.
 
 The rest of version 3 came from my own choices as the developer, not from client requests:
-- **Change:** validation hardened, to keep the manager from breaking the sheet or getting lost after
-  she found simple but surprising ways to break it (one bad pay-week date stopped a whole week). Real
-  dates only, the pay week must start on a Friday and fixes itself when it doesn't, typed and pasted
-  dates are read tolerantly, rows past the limit are reported instead of ignored, a Health Check, and
-  a backup before each new week.
 - **Change:** I saw payments going out with messages like "1 massage, 1 facial plus tips", so I
   automated another routine task. The message for each e-transfer is generated from the week's figures,
   so it is factual and gives proper context, and an E-Transfers tab lists every payment with its message
