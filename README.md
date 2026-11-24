@@ -23,10 +23,16 @@ practitioner's share, linen and product fees, event travel and service fees, gra
 comped booking or custom price. The manager was working all of this out by hand. Mistakes cost trust,
 and the practitioners had no easy way to check their own totals.
 
+The practitioners are all self-employed, so they need accurate records of what they earned and what
+was deducted. Those records weren't being provided.
+
 The person running the tool is not technical, may work on an iPad, and needs it to just work every week.
 
 ## What it does
 
+- **A mini database of services:** the Services tab holds each practitioner's services, their types and
+  prices. Dependent dropdowns on Transactions use it, so nobody has to look up a price or detail, and
+  every figure comes from one place.
 - **Weekly flow in order:** preview totals, make invoice PDFs, make one manager review summary, email
   invoices, write e-transfer notes, then start the next week (back up, archive, clear, move the date on).
 - **Invoices a practitioner can check:** each PDF lists every booking with its fees, then a short ledger
@@ -34,8 +40,11 @@ The person running the tool is not technical, may work on an iPad, and needs it 
 - **One review instead of many:** the manager checks one summary PDF of the whole week instead of
   opening every invoice. Nothing is emailed until its own button is pressed.
 - **Business reports:** business totals for any week, and a summary for any past week.
-- **E-transfer notes:** a ready-to-paste payment message for each practitioner, plus an E-Transfers
-  checklist tab with Paid tick boxes that works in the iPad Sheets app.
+- **E-transfer notes:** for each practitioner, the message to send with the payment is generated from
+  the week's figures, so it is factual and gives proper context. An E-Transfers tab lists every payment
+  with its message and a Paid tick box, and works in the iPad Sheets app.
+- **Accurate records for self-employed practitioners:** every practitioner gets an invoice that shows
+  each booking, fee and gratuity, and the totals are archived week by week.
 - **Side panel:** this week at a glance, each step ticked only when it really succeeded, and a health pill.
 - **Health Check:** finds problems and explains them in plain words. Its report holds counts and row
   numbers only, so it can be sent to the developer without sharing bookings or amounts.
@@ -82,6 +91,8 @@ The rest of version 3 came from my own choices as the developer, not from client
   capacity grows to 500 bookings a week, 100 practitioners, 400 services and 100 events, and older
   sheets grow once, automatically, formulas and protections included. The archive stores plain values,
   so a later price change never rewrites a past week.
+- **Change:** an E-Transfers tab, to automate another routine task. It lists each payment with its
+  generated message ready to copy, and a Paid tick box, so paying everyone is one pass down a list.
 - **Change:** the theme was modernized: every tab, pop-up and PDF in one rose-and-blush style, and
   tabs grouped by how often they're used.
 
@@ -94,6 +105,8 @@ The rest of version 3 came from my own choices as the developer, not from client
 - **Event fees are a per-transaction toggle.** I reversed my earlier service-level design.
 - **Pay stubs are built so the payee can check their own totals.** Every fee is shown per booking and
   again in a ledger that adds up to the net payout.
+- **Take out the friction.** A big piece of the design was removing every step the manager would
+  otherwise do by hand: looking up prices, working out fees, writing payment messages.
 - **The tool is separate from the data.** See the privacy statement at the top.
 - **I asked design questions before larger rebuilds.**
 
