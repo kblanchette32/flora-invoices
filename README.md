@@ -63,6 +63,14 @@ fills in the gaps that weren't being handled.
   can't be broken by accident. Also a backup copy before each new week, guards on every typed or
   pasted date, refusals to send invoices that are out of date, and warnings before anything that
   can't be undone.
+- **Old invoices removed:** remaking the PDFs trashes the week's invoice for anyone who no longer has
+  bookings, so an out-of-date invoice can't be emailed by mistake.
+- **Wrong-account warning:** emails go out from, and PDFs are saved to, whichever Google account is
+  signed in. The panel and the Health Check flag a mismatch with the sheet's owner, a problem that
+  came up for real when the manager was signed in to a different account.
+- **Bring over data from an old sheet:** the manager starts each new version as a fresh copy and pulls
+  her own practitioners, services, settings and history across from her old copy, matched by column
+  heading. This is how updates reach her without me ever seeing her data.
 
 ## Version history
 
@@ -133,6 +141,15 @@ struggles, not only from feedback.
 - **Event fees are a per-transaction toggle.** A booking is tagged to an event, and the fees follow.
 - **Pay stubs are built so the payee can check their own totals.** Every fee is shown per booking and
   again in a ledger that adds up to the net payout.
+- **Prevent, detect, recover.** I assumed the sheet would be broken in ways I couldn't predict, and
+  that wouldn't be the user's fault. So the safety work has three layers. **Prevent:** input rules,
+  dropdowns, locked formulas and one source of truth for prices. **Detect:** the Health Check and
+  plain-language reports of anything skipped or out of place. **Recover:** a backup before each new
+  week, steps that are safe to run twice, and an archive that stores plain values.
+- **Harden the sheet before rebuilding it as an app.** I wanted to make sure the basics worked first.
+  The manager also likes spreadsheets, and I expect more resistance to a new app unless moving her
+  details across were truly easy. A proper app would also need authentication, privacy and cloud
+  resources that I don't have in place yet, so the spreadsheet stays until those are ready.
 - **Take out the friction.** A big piece of the design was removing every step the manager would
   otherwise do by hand: looking up prices, working out fees, writing payment messages.
 - **Calculations live on their own protected sheet.** The manager types inputs; the formulas sit on a
@@ -177,6 +194,15 @@ node --test tests/*.test.js
   before it was released.
 - **Workflow:** versions 1 and 2 were built with Claude and pasted into the sheet. For version 3 I moved
   to Claude Code with clasp and git, so every change was a reviewed commit pushed to my development copy.
+- **How I directed the AI:**
+  - Questions before building: Claude Code asked design questions before any larger rebuild, and I
+    answered them before work began.
+  - Mockups first: the new invoice was designed as a mockup and approved before any code changed;
+    the reports were then restyled to match.
+  - Small, reviewable steps: one tab or feature at a time, checked on my copy before the next.
+  - Audits: I had the whole script audited in batches for gaps and fragile spots, then fixed them.
+  - Tests for the logic: pure functions with Node checks, so changes can be verified without Google.
+  - I approve every push: nothing reaches the live sheet until I say so.
 - **Testing:** the logic that doesn't need Google (date parsing, capacity growth, invoice layout,
   duplicate detection, tab order, invoices adding up and more) is split into pure functions with 47
   Node checks. Everything else is tested on my own copy of the sheet using clearly labelled test bookings.
