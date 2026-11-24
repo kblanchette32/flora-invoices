@@ -72,6 +72,11 @@ fills in the gaps that weren't being handled.
   her own practitioners, services, settings and history across from her old copy, matched by column
   heading. This is how updates reach her without me ever seeing her data.
 
+**Estimated impact.** These are best-guess figures, not measurements. For a team of about 15
+practitioners, a weekly payout run that took an estimated 3 to 4 hours by hand (working out each
+share and fee, writing invoices and payment messages) now takes about 30 minutes, and every
+practitioner gets an itemized invoice they can check.
+
 ## Version history
 
 Most of these changes came from my own knowledge of the industry, the weekly flow, what practitioners
