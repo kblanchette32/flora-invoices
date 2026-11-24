@@ -71,6 +71,8 @@ Each change below started with something the client said, found, or wished for.
   **Change:** I clarified the pain points and created a guided workflow. The one menu became two
   custom menus: one for the weekly flow in order, and one for reports and under-the-hood fixes. Every
   step now says plainly whether it emails anyone or not.
+
+The rest of version 3 came from my own choices as the developer, not from client requests:
 - **Change:** a sidebar repeats the weekly flow as a more visual panel. It shows which step is complete
   or needs review, which gives the sheet an app feel.
 - **Change:** feedback loops guide the user through each step: colour-coded results that lead with the
