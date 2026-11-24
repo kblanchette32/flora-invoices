@@ -58,7 +58,8 @@ fills in the gaps that weren't being handled.
   outside the pay period, bookings changed after the PDFs were made, entries typed twice, formulas typed
   over, services with no price, missing emails, the wrong Google account and more. Its report holds
   counts and row numbers only, so it can be sent to the developer without sharing bookings or amounts.
-- **Safety nets:** a backup copy before each new week, guards on every typed or pasted date, refusals to
+- **Safety nets:** every calculation lives on its own hidden, protected sheet, so the real formulas
+  can't be broken by accident. Also a backup copy before each new week, guards on every typed or pasted date, refusals to
   send invoices that are out of date, and warnings before anything that can't be undone.
 
 ## Version history
@@ -129,6 +130,8 @@ struggles, not only from feedback.
   again in a ledger that adds up to the net payout.
 - **Take out the friction.** A big piece of the design was removing every step the manager would
   otherwise do by hand: looking up prices, working out fees, writing payment messages.
+- **Calculations live on their own protected sheet.** The manager types inputs; the formulas sit on a
+  hidden, locked Calculations tab where they can't be typed over or deleted by accident.
 - **The tool is separate from the data.** See the privacy statement at the top.
 - **I asked design questions before larger rebuilds.**
 
