@@ -71,8 +71,6 @@ Each change below started with something the client said, found, or wished for.
   **Change:** validation hardened: real dates only, the pay week must start on a Friday, dates are read
   tolerantly as a backstop, rows past the limit are reported instead of ignored, a Health Check, and a
   backup before each new week.
-- **Feedback:** payments went out with messages like "1 massage, 1 facial plus tips".
-  **Change:** e-transfer notes that carry the invoice detail into the payment message.
 
 ### Version 3: a guided workflow with an app feel
 - **Feedback:** the client thought she had to generate every invoice and have them emailed in order to
@@ -80,6 +78,10 @@ Each change below started with something the client said, found, or wished for.
   **Change:** I clarified the pain points and created a guided workflow. The one menu became two
   custom menus: one for the weekly flow in order, and one for reports and under-the-hood fixes. Every
   step now says plainly whether it emails anyone or not.
+- **Feedback:** payments went out with messages like "1 massage, 1 facial plus tips".
+  **Change:** I automated another routine task. The message for each e-transfer is generated from the
+  week's figures, so it is factual and gives proper context, and an E-Transfers tab lists every payment
+  with its message ready to copy and a Paid tick box.
 
 The rest of version 3 came from my own choices as the developer, not from client requests:
 - **Change:** a sidebar repeats the weekly flow as a more visual panel. It shows which step is complete
@@ -91,8 +93,6 @@ The rest of version 3 came from my own choices as the developer, not from client
   capacity grows to 500 bookings a week, 100 practitioners, 400 services and 100 events, and older
   sheets grow once, automatically, formulas and protections included. The archive stores plain values,
   so a later price change never rewrites a past week.
-- **Change:** an E-Transfers tab, to automate another routine task. It lists each payment with its
-  generated message ready to copy, and a Paid tick box, so paying everyone is one pass down a list.
 - **Change:** the theme was modernized: every tab, pop-up and PDF in one rose-and-blush style, and
   tabs grouped by how often they're used.
 
