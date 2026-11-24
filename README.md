@@ -59,8 +59,9 @@ fills in the gaps that weren't being handled.
   over, services with no price, missing emails, the wrong Google account and more. Its report holds
   counts and row numbers only, so it can be sent to the developer without sharing bookings or amounts.
 - **Safety nets:** every calculation lives on its own hidden, protected sheet, so the real formulas
-  can't be broken by accident. Also a backup copy before each new week, guards on every typed or pasted date, refusals to
-  send invoices that are out of date, and warnings before anything that can't be undone.
+  can't be broken by accident. Also a backup copy before each new week, guards on every typed or
+  pasted date, refusals to send invoices that are out of date, and warnings before anything that
+  can't be undone.
 
 ## Version history
 
