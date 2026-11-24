@@ -78,10 +78,6 @@ Each change below started with something the client said, found, or wished for.
   **Change:** I clarified the pain points and created a guided workflow. The one menu became two
   custom menus: one for the weekly flow in order, and one for reports and under-the-hood fixes. Every
   step now says plainly whether it emails anyone or not.
-- **Feedback:** payments went out with messages like "1 massage, 1 facial plus tips".
-  **Change:** I automated another routine task. The message for each e-transfer is generated from the
-  week's figures, so it is factual and gives proper context, and an E-Transfers tab lists every payment
-  with its message ready to copy and a Paid tick box.
 
 The rest of version 3 came from my own choices as the developer, not from client requests:
 - **Change:** validation hardened, to keep the manager from breaking the sheet or getting lost after
@@ -89,6 +85,10 @@ The rest of version 3 came from my own choices as the developer, not from client
   dates only, the pay week must start on a Friday and fixes itself when it doesn't, typed and pasted
   dates are read tolerantly, rows past the limit are reported instead of ignored, a Health Check, and
   a backup before each new week.
+- **Change:** I saw payments going out with messages like "1 massage, 1 facial plus tips", so I
+  automated another routine task. The message for each e-transfer is generated from the week's figures,
+  so it is factual and gives proper context, and an E-Transfers tab lists every payment with its message
+  ready to copy and a Paid tick box.
 - **Change:** a sidebar repeats the weekly flow as a more visual panel. It shows which step is complete
   or needs review, which gives the sheet an app feel.
 - **Change:** feedback loops guide the user through each step: colour-coded results that lead with the
