@@ -50,9 +50,14 @@ fills in the gaps that weren't being handled.
   with its message and a Paid tick box, and works in the iPad Sheets app.
 - **Accurate records for self-employed practitioners:** every practitioner gets an invoice that shows
   each booking, fee and gratuity, and the totals are archived week by week.
-- **Side panel:** this week at a glance, each step ticked only when it really succeeded, and a health pill.
-- **Health Check:** finds problems and explains them in plain words. Its report holds counts and row
-  numbers only, so it can be sent to the developer without sharing bookings or amounts.
+- **Side panel:** a GUI-style flow beside the sheet. It shows this week at a glance, the steps in
+  order with each one ticked only when it really succeeded, and a health pill, so nobody has to know
+  which step comes next.
+- **Health Check:** catches the silent ways the numbers could be out of date or wrong, and explains
+  each one in plain words: a data mismatch between the sheet and the invoice math, bookings dated
+  outside the pay period, bookings changed after the PDFs were made, entries typed twice, formulas typed
+  over, services with no price, missing emails, the wrong Google account and more. Its report holds
+  counts and row numbers only, so it can be sent to the developer without sharing bookings or amounts.
 - **Safety nets:** a backup copy before each new week, guards on every typed or pasted date, refusals to
   send invoices that are out of date, and warnings before anything that can't be undone.
 
@@ -71,7 +76,8 @@ Each change below started with something the client said, found, or wished for.
 - **Feedback:** using version 1, the client asked for reports.
   **Change:** business reports alongside the original invoices: a manager review summary, so the week
   can be checked in one PDF instead of invoice by invoice, and a business totals report.
-- **Change:** duplicate invoice generation removed.
+- **Change:** duplicate invoice generation removed, and a single practitioner's invoice can be
+  generated on its own.
 - **Change:** validation started becoming more robust, beginning with strict inputs on Transactions.
 
 ### Version 3: a guided workflow with an app feel
@@ -93,8 +99,10 @@ The rest of version 3 came from my own choices as the developer, not from client
   automated another routine task. The message for each e-transfer is generated from the week's figures,
   so it is factual and gives proper context, and an E-Transfers tab lists every payment with its message
   ready to copy and a Paid tick box.
-- **Change:** a sidebar repeats the weekly flow as a more visual panel. It shows which step is complete
-  or needs review, which gives the sheet an app feel.
+- **Change:** a side panel, the biggest change in this version. It gives the sheet an app feel and a
+  GUI-like flow: it shows which step is complete or needs review and what comes next, instead of
+  expecting someone to know the order, even though the steps were already documented and numbered
+  in the menu.
 - **Change:** feedback loops guide the user through each step: colour-coded results that lead with the
   outcome, red buttons for steps that can't be undone, and errors that explain themselves and end with
   an error report the manager can send to the developer.
