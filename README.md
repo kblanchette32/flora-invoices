@@ -65,23 +65,22 @@ Each change below started with something the client said, found, or wished for.
 - **Feedback:** payments went out with messages like "1 massage, 1 facial plus tips".
   **Change:** e-transfer notes that carry the invoice detail into the payment message.
 
-### Version 3: an app feel and a guided workflow
-- **Feedback:** it was hard to tell what had been done this week and what was still to do.
-  **Change:** a sidebar that shows which step is complete or needs review, giving the sheet an app feel.
-- **Feedback:** the client had misconceptions about what features did (for example, that making
-  invoices emails them) and hadn't found features that already existed.
-  **Change:** I clarified the pain points and created a guided workflow: a Start here tab written by the
-  script, two short menus in step order, and wording that says exactly which steps email people.
-- **Feedback:** when something went wrong, the client didn't know what to do next.
-  **Change:** feedback loops that guide each step: colour-coded results that lead with the outcome,
-  red buttons for steps that can't be undone, and errors that explain themselves and end with an error
-  report the manager can send to the developer.
-- **Wish:** room for the business to get busier without anything breaking.
-  **Change:** archiving expanded: capacity grows to 500 bookings a week, 100 practitioners, 400 services
-  and 100 events, and older sheets grow once, automatically, formulas and protections included. The
-  archive stores plain values, so a later price change never rewrites a past week.
-- **Wish:** a cleaner look.
-  **Change:** the theme was modernized: every tab, pop-up and PDF in one rose-and-blush style, and
+### Version 3: a guided workflow with an app feel
+- **Feedback:** the client thought she had to generate every invoice and have them emailed in order to
+  review them, and she asked for reports that already existed but that she hadn't found.
+  **Change:** I clarified the pain points and created a guided workflow. The one menu became two
+  custom menus: one for the weekly flow in order, and one for reports and under-the-hood fixes. Every
+  step now says plainly whether it emails anyone or not.
+- **Change:** a sidebar repeats the weekly flow as a more visual panel. It shows which step is complete
+  or needs review, which gives the sheet an app feel.
+- **Change:** feedback loops guide the user through each step: colour-coded results that lead with the
+  outcome, red buttons for steps that can't be undone, and errors that explain themselves and end with
+  an error report the manager can send to the developer.
+- **Change:** archiving expanded, with room to grow so nothing breaks as the business gets busier:
+  capacity grows to 500 bookings a week, 100 practitioners, 400 services and 100 events, and older
+  sheets grow once, automatically, formulas and protections included. The archive stores plain values,
+  so a later price change never rewrites a past week.
+- **Change:** the theme was modernized: every tab, pop-up and PDF in one rose-and-blush style, and
   tabs grouped by how often they're used.
 
 ## Design decisions
