@@ -115,6 +115,9 @@ The rest of version 3 came from my own choices as the developer, not from client
   capacity grows to 500 bookings a week, 100 practitioners, 400 services and 100 events, and older
   sheets grow once, automatically, formulas and protections included. The archive stores plain values,
   so a later price change never rewrites a past week.
+- **Change:** settings consolidated. The manager email used to live on the Invoices tab; it moved to
+  Settings with the other business-wide values, by itself the next time the sheet opened, so every
+  setting is in one place.
 - **Change:** the theme was modernized: every tab, pop-up and PDF in one rose-and-blush style, and
   tabs grouped by how often they're used.
 
