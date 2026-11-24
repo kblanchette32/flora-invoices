@@ -68,7 +68,8 @@ Each change below started with something the client said, found, or wished for.
   earlier design that set them per service.
 
 ### Version 2: reports and a cleaner invoice run
-- **Change:** business reports alongside the original invoices: a manager review summary, so the week
+- **Feedback:** using version 1, the client asked for reports.
+  **Change:** business reports alongside the original invoices: a manager review summary, so the week
   can be checked in one PDF instead of invoice by invoice, and a business totals report.
 - **Change:** duplicate invoice generation removed.
 - **Change:** validation started becoming more robust, beginning with strict inputs on Transactions.
