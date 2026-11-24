@@ -40,8 +40,9 @@ fills in the gaps that weren't being handled.
   every figure comes from one place.
 - **Weekly flow in order:** preview totals, make invoice PDFs, make one manager review summary, email
   invoices, write e-transfer notes, then start the next week (back up, archive, clear, move the date on).
-- **Invoices a practitioner can check:** each PDF lists every booking with its fees, then a short ledger
-  (services, less fees, plus gratuity) that adds up to the net payout.
+- **Invoices a practitioner can check:** each PDF lists every booking with its fees and its payout,
+  and the Payout column adds up exactly to the net payout. A short ledger (services, less fees, plus
+  gratuity and bonuses) shows the same total another way.
 - **One review instead of many:** the manager checks one summary PDF of the whole week instead of
   opening every invoice. Nothing is emailed until its own button is pressed.
 - **Business reports:** business totals for any week, and a summary for any past week.
@@ -174,17 +175,18 @@ node --test tests/*.test.js
 - **Workflow:** versions 1 and 2 were built with Claude and pasted into the sheet. For version 3 I moved
   to Claude Code with clasp and git, so every change was a reviewed commit pushed to my development copy.
 - **Testing:** the logic that doesn't need Google (date parsing, capacity growth, invoice layout,
-  duplicate detection, tab order and more) is split into pure functions with 46 Node checks. Everything
-  else is tested on my own copy of the sheet using clearly labelled test bookings.
+  duplicate detection, tab order, invoices adding up and more) is split into pure functions with 47
+  Node checks. Everything else is tested on my own copy of the sheet using clearly labelled test bookings.
 - **Size:** about 5,200 lines across 18 script files and one HTML panel.
 
 ## What's next
 
-- Make each invoice's per-booking Payout column add up exactly to the net payout figure.
 - A short demo video for the manager, built from real screenshots of my copy with test bookings.
 - Release updates through an Apps Script library I own, so the manager's copy updates itself and I
   still never need access to it.
-- Publish a clean template sheet so the setup above is a single copy.
+- Share my working template as a public copy link, so the setup above is a single copy. My own copy
+  is built as that template: it holds no business data, and Add / Clear test bookings in the menu let
+  anyone try a full week safely.
 
 ## Repo layout
 

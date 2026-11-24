@@ -32,7 +32,7 @@ test("wording and labels match the spec", () => {
   assert.strictEqual(data.periodLong, "Friday, Nov 20 to Thursday, Nov 26, 2026");
   assert.strictEqual(data.bookingsLabel, "1 service");
   assert.strictEqual(data.regular[0].date, "Fri Nov 20");
-  assert.strictEqual(data.regular[0].productNote, "includes $10.00 product fee");
+  assert.strictEqual(data.regular[0].productNote, "less $10.00 product fee");
   assert.strictEqual(data.regular[0].facility, "−$40.00");
   assert.strictEqual(data.regular[0].gratuity, "+$15.00");
   assert.deepStrictEqual(data.ledger.map((l) => l[0]), ["Services", "Facility fee (40%)", "Linen fee, 1 × $3.00", "Product fee, 1 × $10.00", "Gratuity"]);

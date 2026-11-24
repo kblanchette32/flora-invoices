@@ -145,7 +145,7 @@ function invoiceHtmlData_(businessName, businessAddress, practitionerName, perio
   const row = function (item) {
     return {
       date: fmt.dayShort(item.date), service: item.service,
-      productNote: item.productFee > 0 ? "includes " + money_(item.productFee) + " product fee" : "",
+      productNote: item.productFee > 0 ? "less " + money_(item.productFee) + " product fee" : "",
       price: money_(item.price), facility: minus(item.facilityFee), linen: minus(item.linenFee),
       serviceFee: plus(item.convenience), gratuity: plus(item.gratAmt), payout: money_(item.payout)
     };
@@ -166,7 +166,14 @@ function invoiceHtmlData_(businessName, businessAddress, practitionerName, perio
     periodLong: fmt.long(periodStart) + " to " + fmt.long(periodEnd) + ", " + fmt.year(periodEnd),
     bookingsLabel: n + " service" + (n === 1 ? "" : "s"), net: money_(netAmount), fileName: fileName || "",
     regular: lineItems.filter(function (i) { return !i.eventName; }).map(row),
-    events: eventNames.map(function (nm) { return { name: nm, rows: lineItems.filter(function (i) { return i.eventName === nm; }).map(row) }; }),
+    // Each event ends with its Travel line, so the Payout column adds up to Net payout.
+    events: eventNames.map(function (nm) {
+      const rows = lineItems.filter(function (i) { return i.eventName === nm; }).map(row);
+      const t = eventTotals[nm].travel;
+      if (t > 0) rows.push({ date: "", service: "Travel (once for this event)", productNote: "", price: "", facility: "",
+        linen: "", serviceFee: "", gratuity: "", payout: money_(t) });
+      return { name: nm, rows: rows };
+    }),
     ledger: ledger
   };
 }

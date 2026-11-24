@@ -1,11 +1,13 @@
 // =====================================================================================
 // FLORA PAYOUTS  (Flora Invoices)
-// Version:      2026-11-23i  (the menu shows this too, as "Script version ...")
+// Version:      2026-11-24a  (the menu shows this too, as "Script version ...")
 //
 // This script is several files (this one plus panel.gs, Panel.html, html_invoice.gs and others), sent to
 // the sheet's bound Apps Script project with clasp. The Start here tab explains the weekly steps.
 //
 // Changes, newest first:
+//   2026-11-24a Invoices add up line by line: each booking's Payout now takes off its product fee, and each
+//               event table ends with a Travel line, so the Payout column sums exactly to Net payout.
 //   2026-11-23i Every popup in the Flora look: Yes/No questions (send, summary, Start next week, backup, tabs,
 //               test data, Start here) are Flora popups that carry on when Yes is pressed; Bring over has its own
 //               popup with a link box and a preview. A non-Friday period start just explains how to fix it.
@@ -120,7 +122,7 @@ const SUMMARY_START_ROW = 9;
 
 // Bump this whenever the script changes. The menu shows it, so you can see at a glance whether
 // two copies of the sheet are running the same script.
-const SCRIPT_VERSION = "2026-11-23i";
+const SCRIPT_VERSION = "2026-11-24a";
 const SEND_LOG_SHEET = "Send Log";
 
 // Start New Week saves a backup copy of the whole sheet here first, and keeps the newest few.
@@ -1301,7 +1303,8 @@ function computePeriodResults_(ss, periodStart, periodEnd) {
         linenFee = Number(r[5]) || 0, travel = Number(r[6]) || 0, convenience = Number(r[7]) || 0,
         gratAmt = Number(r[9]) || 0, comped = Number(r[13]) || 0, eventName = r[14] || "";
       const facilityFee = price * facilityFeePercent;
-      const payout = price - facilityFee - linenFee + convenience + gratAmt;
+      // Every amount that reaches Net payout is in a row: product fee comes off here, travel gets its own line.
+      const payout = price - facilityFee - productFee - linenFee + convenience + gratAmt;
 
       compedTotal += comped;
       sheetNetTotal += Number(r[11]) || 0;
@@ -2499,12 +2502,12 @@ function buildInvoicePdf(folder, businessName, businessAddress, practitionerName
   const EVENT_WIDTHS = [46, 132, 54, 62, 48, 58, 56, 60];      // adds up to 516
 
   // Builds the line-item table; used for regular bookings and again for each event.
-  function appendItemsTable(items, withServiceFee) {
+  function appendItemsTable(items, withServiceFee, travel) {
     const rows = [withServiceFee ? EVENT_COLS : ITEM_COLS];
     items.forEach(function (item) {
       const row = [
         fmtDateShort(item.date),
-        item.service,
+        item.service + (item.productFee > 0 ? " (less " + fmtCurrency(item.productFee) + " product fee)" : ""),
         fmtCurrency(item.price),
         "−" + fmtCurrency(item.facilityFee),
         item.linenFee > 0 ? "−" + fmtCurrency(item.linenFee) : "—",
@@ -2514,6 +2517,7 @@ function buildInvoicePdf(folder, businessName, businessAddress, practitionerName
       row.push(fmtCurrency(item.payout));
       rows.push(row);
     });
+    if (travel > 0) rows.push(["", "Travel (once for this event)", "", "", "", "", "", fmtCurrency(travel)]);
     const last = rows[0].length - 1;
     const right = [];
     for (let c = 2; c <= last; c++) right.push(c);
@@ -2532,11 +2536,11 @@ function buildInvoicePdf(folder, businessName, businessAddress, practitionerName
     appendItemsTable(regularItems, false);
   }
 
-  // ---- one heading and table per event. Travel has no per-line column, so it shows in the Summary as a bonus. ----
+  // ---- one heading and table per event, ending with a Travel line so the Payout column adds up to Net payout. ----
   const eventNames = Object.keys(eventTotals);
   eventNames.forEach(function (name) {
     pdf.section("EVENT · " + String(name).toUpperCase());
-    appendItemsTable(lineItems.filter(function (item) { return item.eventName === name; }), true);
+    appendItemsTable(lineItems.filter(function (item) { return item.eventName === name; }), true, eventTotals[name].travel);
   });
 
   // ---- summary ledger: fees shown as minus (muted); money added to the payout is labeled "Bonus", not "Fee" ----
