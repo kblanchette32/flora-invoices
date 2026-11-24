@@ -26,6 +26,9 @@ and the practitioners had no easy way to check their own totals.
 The practitioners are all self-employed, so they need accurate records of what they earned and what
 was deducted. Those records weren't being provided.
 
+I'm one of those practitioners. Many of the features here exist because I needed these resources
+myself, and I saw an opportunity to build a robust, custom tool that would provide them for everyone.
+
 The person running the tool is not technical, may work on an iPad, and needs it to just work every week.
 
 ## What it does
