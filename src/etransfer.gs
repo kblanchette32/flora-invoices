@@ -79,7 +79,8 @@ function writeETransferTab_(ss, range, cards) {
   body.setValues(rows).setVerticalAlignment("middle").setFontSize(11)
     .setBorder(null, null, true, null, null, true, "#E6D3DA", SpreadsheetApp.BorderStyle.SOLID);
   sh.getRange(ETRANSFER_HEADER_ROW + 1, 1, rows.length, 1).insertCheckboxes().setHorizontalAlignment("center");
-  sh.getRange(ETRANSFER_HEADER_ROW + 1, 4, rows.length, 1).setNumberFormat(CURRENCY_FMT).setFontWeight("bold");
+  sh.getRange(ETRANSFER_HEADER_ROW + 1, 4, rows.length, 1).setNumberFormat(CURRENCY_FMT).setFontWeight("bold")
+    .setHorizontalAlignment("center");  // centred, so it doesn't butt up against the message
   sh.getRange(ETRANSFER_HEADER_ROW + 1, 5, rows.length, 1).setWrap(true);
   sh.setRowHeights(ETRANSFER_HEADER_ROW + 1, rows.length, 56);
   cards.forEach(function (c, i) {
