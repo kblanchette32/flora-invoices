@@ -12,45 +12,9 @@ in this README are mine.
 > reach her copy without that access, and the script never sends data back to me. Everything in this
 > repo, including the sample data, is made up, and all rates and fees are placeholders.
 
-## See it
-
-All screenshots come from a demo copy with made-up practitioners, clients and placeholder rates.
-
-**The side panel** walks the manager through the week in order and ticks each step only when it worked.
-
 ![The Flora Payouts side panel beside the Start here tab](docs/screenshots/panel.jpg)
 
-**This week's totals** fill in on the Invoices tab before anything is made or sent.
-
-![Week totals per practitioner on the Invoices tab](docs/screenshots/week-totals.jpg)
-
-**Each practitioner's invoice** lists every booking, and the Payout column adds up to the net payout.
-
-![A sample payout invoice PDF](docs/screenshots/invoice.jpg)
-
-**One review summary** for the manager, instead of opening every invoice.
-
-![The manager's payroll review summary PDF](docs/screenshots/review-summary.jpg)
-
-**Saved to Drive** in a folder for the pay week.
-
-![The week's invoice folder in Google Drive](docs/screenshots/drive-folder.jpg)
-
-**Nothing is emailed without a clear confirmation** that says who gets what.
-
-![The confirmation before invoices are emailed](docs/screenshots/email-confirm.jpg)
-
-![The invoice email a practitioner receives](docs/screenshots/invoice-email.jpg)
-
-**E-transfer notes** are written from the week's figures, and the E-Transfers tab tracks who's been paid.
-
-![E-transfer notes with a Copy button for each](docs/screenshots/etransfer-notes.jpg)
-
-![The E-Transfers checklist tab](docs/screenshots/etransfers-tab.jpg)
-
-**The Health Check** explains problems in plain words, and its report holds no bookings or amounts.
-
-![The Health Check pop-up](docs/screenshots/health-check.jpg)
+**[Take the screenshot tour →](docs/TOUR.md)** (bookings in, invoices out, payments ticked off)
 
 ---
 
@@ -73,40 +37,70 @@ fills in the gaps that weren't being handled.
 
 ## What it does
 
-- **A mini database of services:** the Services tab holds each practitioner's services, their types and
-  prices. Dependent dropdowns on Transactions use it, so nobody has to look up a price or detail, and
-  every figure comes from one place.
-- **Weekly flow in order:** preview totals, make invoice PDFs, make one manager review summary, email
-  invoices, write e-transfer notes, then start the next week (back up, archive, clear, move the date on).
-- **Invoices a practitioner can check:** each PDF lists every booking with its fees and its payout,
-  and the Payout column adds up exactly to the net payout. A short ledger (services, less fees, plus
-  gratuity and bonuses) shows the same total another way.
-- **One review instead of many:** the manager checks one summary PDF of the whole week instead of
-  opening every invoice. Nothing is emailed until its own button is pressed.
-- **Business reports:** business totals for any week, and a summary for any past week.
-- **E-transfer notes:** for each practitioner, the message to send with the payment is generated from
-  the week's figures, so it is factual and gives proper context. An E-Transfers tab lists every payment
-  with its message and a Paid tick box, and works in the iPad Sheets app.
-- **Accurate records for self-employed practitioners:** every practitioner gets an invoice that shows
-  each booking, fee and gratuity, and the totals are archived week by week.
-- **Side panel:** a GUI-style flow beside the sheet. It shows this week at a glance, the steps in
-  order with each one ticked only when it really succeeded, and a health pill, so nobody has to know
-  which step comes next.
-- **Health Check:** catches the silent ways the numbers could be out of date or wrong, and explains
-  each one in plain words: a data mismatch between the sheet and the invoice math, bookings dated
-  outside the pay period, bookings changed after the PDFs were made, entries typed twice, formulas typed
-  over, services with no price, missing emails, the wrong Google account and more. Its report holds
-  counts and row numbers only, so it can be sent to the developer without sharing bookings or amounts.
-- **Safety nets:** every calculation lives on its own hidden, protected sheet, so the real formulas
-  can't be broken by accident. Also a backup copy before each new week, guards on every typed or
-  pasted date, refusals to send invoices that are out of date, and warnings before anything that
-  can't be undone.
-- **Old invoices removed:** remaking the PDFs trashes the week's invoice for anyone who no longer has
+### The weekly run
+
+- **Steps in order.** Preview totals, make the invoice PDFs, make one manager review summary, email
+  the invoices, write the e-transfer notes, then start the next week.
+- **Side panel.** A GUI-style flow beside the sheet. It shows this week at a glance, ticks each step
+  only when it really succeeded, and has a health pill, so nobody has to know which step comes next.
+- **Starting a new week.** Backs up, archives, clears the bookings and moves the date on.
+
+### Entering bookings
+
+- **A mini database of services.** The Services tab holds each practitioner's services, their types
+  and prices.
+- **Dependent dropdowns.** Transactions uses that list, so nobody has to look up a price, and every
+  figure comes from one place.
+
+### For the practitioners
+
+- **Invoices they can check.** Each PDF lists every booking with its fees and its payout, and the
+  Payout column adds up exactly to the net payout.
+- **A short ledger.** Services, less fees, plus gratuity and bonuses, shows the same total another way.
+- **Accurate records.** They are all self-employed, so every invoice shows each booking, fee and
+  gratuity, and the totals are archived week by week.
+
+### For the manager
+
+- **One review instead of many.** She checks one summary PDF of the whole week instead of opening
+  every invoice.
+- **Nothing sent by accident.** Nothing is emailed until its own button is pressed.
+- **Business reports.** Business totals for any week, and a summary for any past week.
+- **E-transfer notes.** Each payment message is generated from the week's figures, so it is factual
+  and gives proper context.
+- **An E-Transfers tab.** It lists every payment with its message and a Paid tick box, and works in
+  the iPad Sheets app.
+
+### Catching mistakes
+
+- **Health Check.** Catches the silent ways the numbers could be out of date or wrong, and explains
+  each one in plain words. That covers:
+  - the sheet and the invoice math disagreeing
+  - bookings dated outside the pay period
+  - bookings changed after the PDFs were made
+  - entries typed twice, or formulas typed over
+  - services with no price, and missing emails
+  - the wrong Google account, and more
+
+  Its report holds counts and row numbers only, so it can be sent to the developer without sharing
+  bookings or amounts.
+- **Wrong-account warning.** Emails go out from, and PDFs are saved to, whichever Google account is
+  signed in. The panel and the Health Check flag a mismatch with the sheet's owner. This came up for
+  real when the manager was signed in to a different account.
+
+### Safety nets
+
+- **Protected formulas.** Every calculation lives on its own hidden, protected sheet, so the real
+  formulas can't be broken by accident.
+- **Guards.** A backup copy before each new week, and checks on every typed or pasted date.
+- **Refusals and warnings.** It won't send invoices that are out of date, and it warns before
+  anything that can't be undone.
+- **Old invoices removed.** Remaking the PDFs trashes the week's invoice for anyone who no longer has
   bookings, so an out-of-date invoice can't be emailed by mistake.
-- **Wrong-account warning:** emails go out from, and PDFs are saved to, whichever Google account is
-  signed in. The panel and the Health Check flag a mismatch with the sheet's owner, a problem that
-  came up for real when the manager was signed in to a different account.
-- **Bring over data from an old sheet:** the manager starts each new version as a fresh copy and pulls
+
+### Updates without seeing her data
+
+- **Bring over data from an old sheet.** The manager starts each new version as a fresh copy and pulls
   her own practitioners, services, settings and history across from her old copy, matched by column
   heading. This is how updates reach her without me ever seeing her data.
 
