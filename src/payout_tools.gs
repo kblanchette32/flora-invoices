@@ -8,6 +8,7 @@
 // Changes, newest first:
 //   2026-11-25a Check totals and Make invoice PDFs now open the Invoices tab, so the table the pop-up
 //               mentions is on screen.
+//               The Start here tab is narrower (about 920px), so it fits beside the Flora Payouts panel.
 //   2026-11-24a Invoices add up line by line: each booking's Payout now takes off its product fee, and each
 //               event table ends with a Travel line, so the Payout column sums exactly to Net payout.
 //   2026-11-23i Every popup in the Flora look: Yes/No questions (send, summary, Start next week, backup, tabs,
