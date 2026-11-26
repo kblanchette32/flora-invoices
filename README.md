@@ -1,6 +1,7 @@
 # Flora Invoices
 
-A weekly payout and invoicing tool for a wellness centre, built in Google Sheets and Google Apps Script.
+A weekly payout and invoicing tool for a small service business that pays self-employed practitioners,
+built in Google Sheets and Google Apps Script.
 The manager logs a week of bookings and the tool produces each practitioner's invoice, a manager review
 summary, e-transfer notes and an archive. A side panel shows which step is done and which needs review.
 
@@ -22,13 +23,19 @@ in this README are mine.
 
 ## The problem
 
-A wellness centre pays its practitioners every week. Each payout depends on the service price, the
-practitioner's share, linen and product fees, event travel and service fees, gratuities, and the odd
-comped booking or custom price. The manager was working all of this out by hand. Mistakes cost trust,
-and the practitioners had no easy way to check their own totals.
+Flora Sanctuary is a small wellness spa. Its practitioners are self-employed, and the business pays
+them every week. That setup is common across the service industry, and it's hard to run well as a
+small business: payroll and booking software is priced for bigger companies, and an HR or bookkeeping
+hire isn't realistic.
 
-The practitioners are all self-employed, so they need accurate records of what they earned and what
-was deducted. Those records weren't being provided.
+So the manager was doing it by hand. Bookings come in through more than one booking system, and each
+week she pulled them together into payouts. Every payout depends on the service price, the
+practitioner's share, linen and product fees, event travel and service fees, gratuities, and the odd
+comped booking or custom price. Mistakes cost trust, and the practitioners had no easy way to check
+their own totals.
+
+Because they're self-employed, the practitioners also need accurate records of what they earned and
+what was deducted. Those records weren't being provided.
 
 I'm one of those practitioners. Many of the features here exist because I needed these resources
 myself, and I saw an opportunity to build a robust, custom tool that would provide them for everyone.
@@ -68,6 +75,9 @@ fills in the gaps that weren't being handled.
   every invoice.
 - **Nothing sent by accident.** Nothing is emailed until its own button is pressed.
 - **Business reports.** Business totals for any week, and a summary for any past week.
+- **Records that stay.** Starting a new week saves a backup copy of the whole sheet, then files every
+  booking in the Archive tab and each practitioner's totals in Payout History. They're saved as plain
+  values, so a later price change never rewrites a past week.
 - **E-transfer notes.** Each payment message is generated from the week's figures, so it is factual
   and gives proper context.
 - **An E-Transfers tab.** It lists every payment with its message and a Paid tick box, and works in
