@@ -141,7 +141,9 @@
   }
 
   // ---- talking to the sheet
+  var lastLoad = 0;
   function load() {
+    lastLoad = Date.now();
     google.script.run.withSuccessHandler(render).withFailureHandler(fail).getPanelState();
   }
   function run(action, btn) {
@@ -350,6 +352,15 @@
       el("span", { "class": "muted", style: "font-size:11px;word-break:break-word", text: "Technical detail: " + String(msg).slice(0, 180) })
     ]));
   }
+
+  // A step run from the Flora menus can't tell the panel it happened, so the panel quietly re-checks
+  // when the mouse comes back over it (at most every 15 seconds, to keep Google's script quota low).
+  function quietRefresh() {
+    if (busy || !loadedOnce || Date.now() - lastLoad < 15000) return;
+    load();
+  }
+  document.documentElement.addEventListener("mouseenter", quietRefresh);
+  window.addEventListener("focus", quietRefresh);
 
   load();
 })();

@@ -7,7 +7,8 @@
 //
 // Changes, newest first:
 //   2026-11-25a Check totals and Make invoice PDFs now open the Invoices tab, so the table the pop-up
-//               mentions is on screen.
+//               mentions is on screen. The Invoices table is about 925px wide, so Net Amount stays clear of the panel,
+//               and the panel re-checks itself when the mouse comes back to it after a step run from the menu.
 //               The Start here tab is narrower (about 920px), so it fits beside the Flora Payouts panel.
 //   2026-11-24a Invoices add up line by line: each booking's Payout now takes off its product fee, and each
 //               event table ends with a Travel line, so the Payout column sums exactly to Net payout.
@@ -1381,10 +1382,10 @@ function writeSummaryTable_(invoicesSheet, results) {
     .setBorder(false, false, false, false, false, false);  // old row lines go too, so a shorter table leaves none behind
 
   // A..J, in pixels. Column width is a whole-sheet property, not per-row, so
-  // these also apply to the Period Start/End/Manager Email block above this
-  // table (same columns) — sized generously enough (esp. C) to fit both a
-  // long email address up there and this table's numbers down here.
-  const widths = [130, 110, 180, 90, 85, 80, 80, 80, 90, 95];
+  // these also apply to the Period Start/End block above this table (same
+  // columns). The manager email lives on Settings now, so C no longer needs
+  // extra room for it.
+  const widths = [120, 95, 110, 90, 85, 80, 80, 80, 90, 95];  // about 925px, so Net Amount stays clear of the panel
   widths.forEach(function (w, i) { invoicesSheet.setColumnWidth(i + 1, w); });
 
   const summaryHeaders = ["Practitioner", "Transactions", "Gratuity",
