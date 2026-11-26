@@ -24,7 +24,7 @@
   .pill { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: var(--text); border: none; border-radius: 999px; padding: 6px 10px; min-height: 32px; font-size: 12px; font-weight: 700; white-space: nowrap; cursor: pointer; }
   .pill:hover:not(:disabled) { background: var(--blush); }
   .dot { width: 8px; height: 8px; border-radius: 4px; background: var(--green); }
-  .dot.warn { background: #C98A00; } .dot.fix { background: #C0392B; }
+  .dot.warn { background: #C98A00; } .dot.fix { background: #C0392B; } .dot.wait { background: #C9B8C0; }
 
   .wrap { padding: 0 12px 16px; margin-top: -32px; display: flex; flex-direction: column; gap: 12px; }
   .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
@@ -142,9 +142,20 @@
 
   // ---- talking to the sheet
   var lastLoad = 0;
+  // Two quick trips instead of one slow one: the week and steps first, then the full Health Check.
   function load() {
     lastLoad = Date.now();
-    google.script.run.withSuccessHandler(render).withFailureHandler(fail).getPanelState();
+    var px = Math.min(window.screen.availWidth || 99999, window.outerWidth || 99999);
+    google.script.run
+      .withSuccessHandler(function (s) { render(s); loadFull(); })
+      .withFailureHandler(fail)
+      .getPanelState({ quick: true, windowPx: px < 99999 ? px : 0 });
+  }
+  function loadFull() {
+    google.script.run
+      .withSuccessHandler(function (s) { if (!busy) render(s); })
+      .withFailureHandler(fail)
+      .getPanelState();
   }
   function run(action, btn) {
     if (busy) return;
@@ -175,8 +186,8 @@
 
     var h = s.health || {};
     var dot = document.getElementById("pillDot");
-    dot.className = "dot" + (h.fixes ? " fix" : h.warns ? " warn" : "");
-    document.getElementById("pillText").textContent = h.fixes ? h.fixes + " to fix" : h.warns ? h.warns + " heads-up" : "All good";
+    dot.className = "dot" + (h.pending ? " wait" : h.fixes ? " fix" : h.warns ? " warn" : "");
+    document.getElementById("pillText").textContent = h.pending ? "Checking…" : h.fixes ? h.fixes + " to fix" : h.warns ? h.warns + " heads-up" : "All good";
 
     var wrap = el("div", { style: "display:flex;flex-direction:column;gap:12px" });
 
@@ -189,7 +200,8 @@
             el("span", { style: "white-space:nowrap", text: s.periodEnd })])
         : el("span", { "class": "range", text: "Period start needs a date" }),
       el("span", { "class": "hint", text: "Wrong week? Change the date in cell C4 on the Invoices tab." }),
-      s.periodOk ? el("span", { "class": "muted", text: s.bookings + " booking" + (s.bookings === 1 ? "" : "s") + " · " + s.practitioners + " practitioner" + (s.practitioners === 1 ? "" : "s") }) : null,
+      s.periodOk && s.bookings === null ? el("span", { "class": "muted", text: "Counting bookings…" }) : null,
+      s.periodOk && s.bookings !== null ? el("span", { "class": "muted", text: s.bookings + " booking" + (s.bookings === 1 ? "" : "s") + " · " + s.practitioners + " practitioner" + (s.practitioners === 1 ? "" : "s") }) : null,
       h.first ? el("div", { "class": "amber", role: "status", text: (h.firstLevel === "fix" ? "To fix: " : "Heads-up: ") + h.first }) : null
     ]);
     wrap.appendChild(week);

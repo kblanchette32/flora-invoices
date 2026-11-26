@@ -45,13 +45,17 @@ function panelRun(name) {
   return getPanelState();
 }
 
-function getPanelState() {
+// opts.quick: skip the Health Check (it reads every booking), so the panel can draw the week and steps
+// right away and ask again for the full state a moment later. opts.windowPx: the browser window width.
+function getPanelState(opts) {
+  opts = opts || {};
   ensureCapacity_();  // one-time; the panel reads every row, so the sheet must be the right size first
-  try { ensureRecordsStyle_(); } catch (err) { recordError_("Style the records tabs", err); }
   const ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (opts.windowPx) { try { rememberWindowWidth_(ss, opts.windowPx); } catch (err) { recordError_("Fit the tabs to the screen", err); } }
+  if (!opts.quick) { try { ensureRecordsStyle_(); } catch (err) { recordError_("Style the records tabs", err); } }
   const tz = ss.getSpreadsheetTimeZone();
   const stats = {};
-  const items = collectHealthItems_(ss, { keepLastError: true, stats: stats });
+  const items = opts.quick ? [] : collectHealthItems_(ss, { keepLastError: true, stats: stats });
   const fixes = items.filter(function (i) { return i.level === "fix"; });
   const warns = items.filter(function (i) { return i.level === "warn"; });
   // The account has its own strip in the panel, so the amber box shows the first OTHER problem.
@@ -67,9 +71,9 @@ function getPanelState() {
     version: SCRIPT_VERSION,
     periodOk: v instanceof Date,
     periodStart: "", periodEnd: "", nextStart: "",
-    bookings: stats.bookings || 0,
-    practitioners: stats.practitioners || 0,
-    health: { fixes: fixes.length, warns: warns.length, first: first ? first.text : "", firstLevel: first ? first.level : "" },
+    bookings: opts.quick ? null : (stats.bookings || 0),
+    practitioners: opts.quick ? null : (stats.practitioners || 0),
+    health: { pending: !!opts.quick, fixes: fixes.length, warns: warns.length, first: first ? first.text : "", firstLevel: first ? first.level : "" },
     account: { me: w.me, owner: w.owner, mismatch: !!(w.me && w.owner && w.me.toLowerCase() !== w.owner.toLowerCase()) },
     done: {},
     tabs: panelTabsPresent_(ss)
@@ -80,7 +84,7 @@ function getPanelState() {
     state.periodEnd = label(new Date(start.getFullYear(), start.getMonth(), start.getDate() + 6));
     state.nextStart = label(new Date(start.getFullYear(), start.getMonth(), start.getDate() + 7));
     state.done = getStepsDone_(start);
-  } else if (!state.health.first) {
+  } else if (!state.health.first && !opts.quick) {
     state.health.first = "Invoices cell " + PERIOD_START_CELL + " isn't a valid date. Type this week's Friday, like 11/20/2026.";
     state.health.firstLevel = "fix";
   }

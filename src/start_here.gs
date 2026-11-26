@@ -27,7 +27,8 @@ function manualLink_(ss) {
 const WHATS_NEW_ = [
   { when: "November 25, 2026", items: [
     "Check totals and Make invoice PDFs now open the Invoices tab, so the totals table is right in front of you.",
-    "This Start here tab fits beside the Flora Payouts panel, with nothing cut off."
+    "Start here and Invoices fit your screen: on a smaller laptop they switch to narrower columns so nothing hides behind the panel.",
+    "The Flora Payouts panel opens faster: the week and steps show first, and the status label fills in a moment later."
   ] },
   { when: "November 23, 2026", items: [
     "Invoices, the manager summary and business totals in the new look: a clean header, the payout in a pink box, and an easy-to-read summary.",
@@ -98,7 +99,7 @@ function rebuildStartHere(confirmed) {
   ss.toast("The Start here tab is up to date.", "Start here", 5);
 }
 
-// Lays the guide out in columns B to E (about 920px wide, so nothing is cut off with the Flora Payouts panel open).
+// Lays the guide out in columns B to E (compact or roomy widths from layout.gs, so nothing is cut off with the Flora Payouts panel open).
 function writeStartHere_(ss) {
   let sh = ss.getSheetByName(START_HERE_SHEET);
   if (!sh) sh = ss.insertSheet(START_HERE_SHEET, 0);
@@ -109,7 +110,7 @@ function writeStartHere_(ss) {
   sh.getRange(1, 1, sh.getMaxRows(), sh.getMaxColumns()).breakApart().setFontFamily("DM Sans").setFontColor("#2E2A2C")
     .setVerticalAlignment("middle").setWrap(true);
   sh.setHiddenGridlines(true).setTabColor(COLOR_PRIMARY);
-  [16, 52, 230, 460, 160].forEach(function (w, i) { sh.setColumnWidth(i + 1, w); });
+  widthsFor_("startHere", currentLayout_()).forEach(function (w, i) { sh.setColumnWidth(i + 1, w); });  // see layout.gs
 
   const TAGS = {
     none: { text: "Emails nobody", bg: "#E7F2EC", fg: "#2F6B4F" },
