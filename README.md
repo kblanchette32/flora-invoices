@@ -13,7 +13,7 @@ in this README are mine.
 > reach her copy without that access, and the script never sends data back to me. Everything in this
 > repo, including the sample data, is made up, and all rates and fees are placeholders.
 
-[![Watch the one-minute demo](docs/demo/poster.jpg)](docs/demo/flora-payouts-demo.mp4)
+https://github.com/user-attachments/assets/3c7a3be8-6c72-4513-b022-191b2ffb0434
 
 **[Watch the one-minute demo](docs/demo/flora-payouts-demo.mp4)** (sample data, with voiceover)
 
