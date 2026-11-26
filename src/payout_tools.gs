@@ -1,11 +1,13 @@
 // =====================================================================================
 // FLORA PAYOUTS  (Flora Invoices)
-// Version:      2026-11-24a  (the menu shows this too, as "Script version ...")
+// Version:      2026-11-25a  (the menu shows this too, as "Script version ...")
 //
 // This script is several files (this one plus panel.gs, Panel.html, html_invoice.gs and others), sent to
 // the sheet's bound Apps Script project with clasp. The Start here tab explains the weekly steps.
 //
 // Changes, newest first:
+//   2026-11-25a Check totals and Make invoice PDFs now open the Invoices tab, so the table the pop-up
+//               mentions is on screen.
 //   2026-11-24a Invoices add up line by line: each booking's Payout now takes off its product fee, and each
 //               event table ends with a Travel line, so the Payout column sums exactly to Net payout.
 //   2026-11-23i Every popup in the Flora look: Yes/No questions (send, summary, Start next week, backup, tabs,
@@ -122,7 +124,7 @@ const SUMMARY_START_ROW = 9;
 
 // Bump this whenever the script changes. The menu shows it, so you can see at a glance whether
 // two copies of the sheet are running the same script.
-const SCRIPT_VERSION = "2026-11-24a";
+const SCRIPT_VERSION = "2026-11-25a";
 const SEND_LOG_SHEET = "Send Log";
 
 // Start New Week saves a backup copy of the whole sheet here first, and keeps the newest few.
@@ -1477,6 +1479,7 @@ function previewInvoiceTotals() {
   }
 
   const netGrandTotal = writeSummaryTable_(invoicesSheet, computed.results);
+  ss.setActiveSheet(invoicesSheet);  // show the table the pop-up talks about
   markStepDone_("1");
   const skipped = skippedNote_(computed).trim();
   floraDialog_("This week's totals", {
@@ -1512,6 +1515,7 @@ function generateInvoices() {
   }
 
   writeSummaryTable_(invoicesSheet, computed.results);
+  ss.setActiveSheet(invoicesSheet);  // show the table the pop-up talks about
 
   const folderName = "Invoices " + fmtDate(periodStart) + " to " + fmtDate(periodEnd);
   const folder = getOrCreateFolder(folderName);
