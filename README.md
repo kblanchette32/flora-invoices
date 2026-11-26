@@ -40,9 +40,9 @@ what was deducted. Those records weren't being provided.
 I'm one of those practitioners. Many of the features here exist because I needed these resources
 myself, and I saw an opportunity to build a robust, custom tool that would provide them for everyone.
 
-The person running the tool is not technical, may work on an iPad, and doesn't read instructions. If
-she gets lost, she stops using the tool. So my goal was a tool that is easy to follow, foolproof, and
-fills in the gaps that weren't being handled.
+The person running the tool is not technical, may work on an iPad, and doesn't always read instructions. 
+If she gets lost, she stops using the tool. So my goal was a tool that is easy to follow, foolproof, and
+fills in the gaps that weren't being handled while reducing time spent in the process.
 
 ## What it does
 
@@ -259,7 +259,6 @@ node --test tests/*.test.js
 
 ## What's next
 
-- A short demo video for the manager, built from real screenshots of my copy with test bookings.
 - Release updates through an Apps Script library I own, so the manager's copy updates itself and I
   still never need access to it.
 - Share my working template as a public copy link, so the setup above is a single copy. My own copy
