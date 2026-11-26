@@ -12,7 +12,9 @@ in this README are mine.
 > reach her copy without that access, and the script never sends data back to me. Everything in this
 > repo, including the sample data, is made up, and all rates and fees are placeholders.
 
-![The Flora Payouts side panel beside the Start here tab](docs/screenshots/panel.jpg)
+[![Watch the one-minute demo](docs/demo/poster.jpg)](docs/demo/flora-payouts-demo.mp4)
+
+**[Watch the one-minute demo](docs/demo/flora-payouts-demo.mp4)** (sample data, with voiceover)
 
 **[Take the screenshot tour →](docs/TOUR.md)** (bookings in, invoices out, payments ticked off)
 
