@@ -2,13 +2,13 @@
 // FIT THE TABS TO THE SCREEN
 //
 // Sheets column widths are fixed pixels, and a script can't see the screen. The Flora Payouts panel can:
-// it measures the browser window each time it opens and sends that here. Below about 1500px wide, the
+// it measures the browser window each time it opens and sends that here. Below about 1600px wide, the
 // roomy layout would slide under the 300px panel, so Invoices and Start here switch to compact widths.
 // Same columns, same contents, just tighter. The choice is kept per person (User Properties).
 // =====================================================================================
 
 const LAYOUT_KEY = "FLORA_LAYOUT";
-const WIDE_WINDOW_PX = 1500;  // narrowest browser window where the roomy widths still clear the panel
+const WIDE_WINDOW_PX = 1600;  // roomy widths only on big screens; a 1512px laptop is too tight beside the panel
 
 const LAYOUTS_ = {
   invoices:  { roomy: [130, 110, 180, 90, 85, 80, 80, 80, 90, 95], compact: [120, 95, 110, 90, 85, 80, 80, 80, 90, 95] },
