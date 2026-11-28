@@ -1,4 +1,4 @@
-# Flora Invoices
+# Flora Payouts
 
 A weekly payout and invoicing tool for a small service business that pays self-employed practitioners,
 built in Google Sheets and Google Apps Script.
